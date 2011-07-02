@@ -7,7 +7,7 @@ package tribool
 // Tribool represents a ternary (three-valued) logic type.
 type Tribool int
 
-// Those constants for all possible values in a ternary logic.
+// Constants for all possible values in a ternary logic.
 const (
     True = Tribool(2)
     Indeterminate = Tribool(1)
