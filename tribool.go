@@ -1,16 +1,23 @@
+// Copyright 2011 Sascha Peilicke. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
 package tribool
 
+// Tribool represents a ternary (three-valued) logic type.
 type Tribool int
 
-const True = Tribool(2)
-const Indeterminate = Tribool(1)
-const False = Tribool(0)
+// Those constants for all possible values in a ternary logic.
+const (
+    True = Tribool(2)
+    Indeterminate = Tribool(1)
+    False = Tribool(0)
+)
 
 func (a Tribool) True() bool          { return a == True }
 func (a Tribool) Indeterminate() bool { return a == Indeterminate }
 func (a Tribool) False() bool         { return a == False }
 func (a Tribool) Boolean() bool       { return a != Indeterminate }
-func (a Tribool) Equal(b Tribool) bool { return a == b }
 
 func (a Tribool) Not() Tribool {
     switch a {
@@ -20,26 +27,20 @@ func (a Tribool) Not() Tribool {
     return Indeterminate
 }
 
-func min(a, b int) int {
-    if a < b {
-	return a
-    }
-    return b
-}
-
-func max(b, a int) int {
-    if a > b {
-	return a
-    }
-    return b
-}
+func (a Tribool) Equal(b Tribool) bool { return a == b }
 
 func (a Tribool) And(b Tribool) Tribool {
-    return Tribool(min(int(a), int(b)))
+    if int(a) < int(b) {
+        return a
+    }
+    return b
 }
 
 func (a Tribool) Or(b Tribool) Tribool {
-    return Tribool(max(int(a), int(b)))
+    if int(a) > int(b) {
+        return a
+    }
+    return b
 }
 
 func FromBool(value bool) Tribool {
