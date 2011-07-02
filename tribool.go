@@ -2,23 +2,15 @@ package tribool
 
 type Tribool int
 
-const True = 2
-const Indeterminate = 1
-const False = 0
-
-func New(value string) Tribool {
-    ret := Tribool(False)
-    switch value {
-    case "true": ret = True
-    case "indeterminate": ret = Indeterminate
-    }
-    return ret
-}
+const True = Tribool(2)
+const Indeterminate = Tribool(1)
+const False = Tribool(0)
 
 func (a Tribool) True() bool          { return a == True }
 func (a Tribool) Indeterminate() bool { return a == Indeterminate }
 func (a Tribool) False() bool         { return a == False }
 func (a Tribool) Boolean() bool       { return a != Indeterminate }
+func (a Tribool) Equal(b Tribool) bool { return a == b }
 
 func (a Tribool) Not() Tribool {
     switch a {
@@ -50,6 +42,23 @@ func (a Tribool) Or(b Tribool) Tribool {
     return Tribool(max(int(a), int(b)))
 }
 
+func FromBool(value bool) Tribool {
+    ret := Tribool(False)
+    if value == true {
+        ret = True
+    }
+    return ret
+}
+
+func FromString(value string) Tribool {
+    ret := Tribool(Indeterminate)
+    switch value {
+        case "true": ret = True
+        case "false": ret = False
+    }
+    return ret
+}
+
 func (a Tribool) String() string {
     ret := "indeterminate"
     switch a {
@@ -58,6 +67,3 @@ func (a Tribool) String() string {
     }
     return ret
 }
-
-//func (a Tribool) toBoolean() bool, os.Error {
-//}
