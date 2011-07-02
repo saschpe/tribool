@@ -1,24 +1,39 @@
 package tribool
 
 import (
-    "fmt"
     "testing"
 )
 
-func TestTribool(tp *testing.T) {
-    t1 := New("true")
-    t2 := New("false")
-
-    fmt.Println(t1)
-    fmt.Println(t1.True())
-    fmt.Println(t1.False())
-    fmt.Println(t1.Indeterminate())
-    fmt.Println(t1.Not())
-
-    fmt.Println(t1.And(t2))
-    fmt.Println(t1.Or(t2))
+func TestPrinting(t *testing.T) {
+    if Tribool(True).String() != "true" {
+        t.Fail()
+    }
+    if Tribool(Indeterminate).String() != "indeterminate" {
+        t.Fail()
+    }
+    if Tribool(False).String() != "false" {
+       t.Fail()
+    }
 }
 
-func TestPrinting(tp *testing.T) {
+func TestIdentity(t *testing.T) {
+    a, b, c := Tribool(True), Tribool(Indeterminate), Tribool(False)
+
+    if !a.True() || a.Indeterminate() || a.False() {
+        t.Fail()
+    }
+    if b.True() || !b.Indeterminate() || b.False() {
+        t.Fail()
+    }
+    if c.True() || c.Indeterminate() || !c.False() {
+        t.Fail()
+    }
+}
+
+func TestAnd(t *testing.T) {
+
+}
+
+func TestOr(t *testing.T) {
 
 }
