@@ -1,2 +1,0 @@
-Package tribool implements a ternary (three-valued) logic and
-a corresponding type 'Tribool' for the Go programming language.
